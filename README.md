@@ -1,1 +1,2 @@
-# Magnus-Effect---Simulation
+# Magnus Effect/ Simulation
+
