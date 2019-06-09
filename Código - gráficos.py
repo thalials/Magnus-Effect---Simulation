@@ -3,9 +3,6 @@
 Autoria:
  Cicero Tiago Carneiro Valentim 
  Thalia Loiola Silva
- Giovanna Alves Papandrea Neves
- Kathellen da Silva Nascimento
-        
 """
 from math import sqrt, pi
 from scipy.integrate import odeint
