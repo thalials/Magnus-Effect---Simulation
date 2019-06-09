@@ -10,39 +10,40 @@ from scipy.integrate import odeint
 import numpy as np
 import matplotlib.pyplot as plt
  	
-r = 0.1225		# raio da bola (m)
+r = 0.1225		        # raio da bola (m)
 A = pi*(r**2)          	# Área transversal (m²)
 V = 4*pi*(r**3)/3   	# Volume da esfera (m³)
-ro = 1.17            	# densidade volumétrica (kg/m³)
-w = 12          # velocidade angular (rad/s)
-g = 10               # Aceleração gravitacional
-m = 0.62             # massa da esfera (kg)
-n = 1.8*1e-5   #viscosidade dinamica (Pa.s)
+ro = 1.29            	# densidade volumétrica (kg/m³)
+w = 12                  # velocidade angular (rad/s)
+g = 10                  # Aceleração gravitacional
+m = 0.62                # massa da esfera (kg)
+n = 1.8*1e-5            # viscosidade dinamica (Pa.s)
 I = (2/3)*m*(r**2)
 
-def eq_dif( lista_equacoes, tempo):
+def eq_dif(lista_equacoes, tempo):
     x = lista_equacoes[0]
     y = lista_equacoes[1]
     
     vx = lista_equacoes[2]
     vy = lista_equacoes[3]
-
+    v = sqrt((vx**2) + (vy**2))
+    
     if y <= r:
-        y = 0
-        dxdt = 0
+#        y = r
+        dxdt = vx
         dydt = 0
         dvxdt = 0
         dvydt = 0
         
     else:
-        v = sqrt((vx**2) + (vy**2))
+        
         dxdt = vx
         dydt = vy
        
         if v > 0 :
-            Cl = w*r/v
+            Cl = 1 #w*r/v
             Re = 2*ro*r*v/n
-            Cd = 24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
+            Cd = 0.47 # 24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
             cos_alfa = vx/v
             sen_alfa = vy/v
             
@@ -66,55 +67,59 @@ def eq_dif( lista_equacoes, tempo):
 
 #lista de tempo analisado
 dt = 1e-4
-lista_tempo = np.arange(0, 20, dt)
+lista_tempo = np.arange(0, 50, dt)
 
 # Condicoes iniciais: x, y, vx, vy, w respectivamente
-condicoes_iniciais = [0, 126.5, 0, 0]
+condicoes_iniciais = [0, 165, 0, 0]
 
 solucao = odeint(eq_dif,condicoes_iniciais,lista_tempo)
 
 # Solucoes 
-x = solucao[:,0]
-y = solucao[:,1]
-vx = solucao[:,2]
-vy = solucao[:,3]
+x = solucao[:194431:,0]
+y = solucao[:194431:,1]
+vx = solucao[:194431:,2]
+vy = solucao[:194431:,3]
 
 #Graficos:
-# 1) Gráfico da trajetória 
-#plt.plot(lista_tempo, w)
-#plt.title("w versus tempo")
-#plt.xlabel('tempo')
-#plt.ylabel('w')
-#plt.grid()
-#plt.show()
-
-
-# Grafico da velocidade em x versus tempo 
-plt.plot(x, y)
+#  
+plt.plot(x, y, '-')
 plt.title("trajetoria")
 plt.xlabel("x")
 plt.ylabel("y")
-#plt.axis([4, 4.1, -0.00001, 0.00001])
 plt.grid()
 plt.show()
 #
-#plt.plot(lista_tempo,solucao[:,3])
-#plt.title("vy vs tempo")
-#plt.xlabel("tempo")
-#plt.ylabel("Velocidade vertical")
-#plt.grid()
-#plt.show()
-#
-#plt.plot(solucao[:,2],solucao[:,3], '--')
-#plt.xlabel("vx")
-#plt.ylabel("vy")
-#plt.axis("equal")
-#plt.grid()
-#plt.show()
+plt.plot(vx, vy, '--')
+plt.xlabel("vx")
+plt.ylabel("vy")
+plt.axis("equal")
+plt.grid()
+plt.show()
 #
 plt.plot(lista_tempo,solucao[:,1])
 plt.title("y vs tempo")
 plt.xlabel("tempo")
 plt.ylabel("y")
+plt.grid()
+plt.show()
+#
+plt.plot(lista_tempo,solucao[:,0])
+plt.title("x vs tempo")
+plt.xlabel("tempo")
+plt.ylabel("x")
+plt.grid()
+plt.show()
+#
+plt.plot(lista_tempo,solucao[:,2])
+plt.title("vx vs tempo")
+plt.xlabel("tempo")
+plt.ylabel("Velocidade horizontal")
+plt.grid()
+plt.show()
+#
+plt.plot(lista_tempo,solucao[:,3])
+plt.title("vy vs tempo")
+plt.xlabel("tempo")
+plt.ylabel("Velocidade vertical")
 plt.grid()
 plt.show()
