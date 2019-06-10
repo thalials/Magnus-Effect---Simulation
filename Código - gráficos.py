@@ -127,6 +127,7 @@ condicoes_iniciais = [0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180)]
 solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
 solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente c om Arrasto
 
+unidade = ['°']
 # Solucoes
 for i in range(8):
     theta = 3 + 11.3*i
@@ -136,7 +137,7 @@ for i in range(8):
     y = solucao[:,1]
     vx = solucao[:,2]
     vy = solucao[:,3]
-    plt.plot(x, y, label = '{:.0f}'.format(theta)) 
+    plt.plot(x, y, label = '{:.0f}{:.1}'.format(theta, unidade[0])) 
 
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
@@ -150,7 +151,7 @@ plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 #plt.axis([0,250,0,70])
 plt.grid(True)
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento (°):')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
 #plt.legend(scatterpoints=1, frameon=False, labelspacing=1, title='Condutividade térmica:')
 plt.show()
 
