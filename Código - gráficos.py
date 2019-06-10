@@ -132,11 +132,11 @@ for i in range(8):
     theta = 3 + 11.3*i
     condicoes_iniciais = [0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180)]
     solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
-    plt.plot(x, y, label = '{:.0f}'.format(theta)) 
     x = solucao[:,0]
     y = solucao[:,1]
     vx = solucao[:,2]
     vy = solucao[:,3]
+    plt.plot(x, y, label = '{:.0f}'.format(theta)) 
 
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
@@ -144,7 +144,6 @@ vx1 = solucao2[:,2]
 vy1 = solucao2[:,3]
 
 ##Graficos:
-
 plt.plot(x1, y1, label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
 plt.title("Trajetória")
 plt.xlabel("x (m)")
