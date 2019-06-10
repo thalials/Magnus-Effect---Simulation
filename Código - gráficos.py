@@ -9,6 +9,8 @@ from math import sqrt, pi, cos, sin
 from scipy.integrate import odeint
 import numpy as np
 import matplotlib.pyplot as plt
+import pylab as p
+import mpl_toolkits.mplot3d.axes3d as p3
  	
 r = 0.0213		        # raio da bola (m)
 A = pi*(r**2)          	# Área transversal (m²)
@@ -118,8 +120,8 @@ dt = 1e-4
 lista_tempo = np.arange(0, 15, dt)
 
 # Condicoes iniciais: x, y, vx, vy respectivamente
-v = 70 # velocidade de lançamento (m/s)
-theta = 16 # angulo de lançamento (graus)
+v = 76 # velocidade de lançamento (m/s)
+theta = 17 # angulo de lançamento (graus)
 condicoes_iniciais = [0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180)]
 
 solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
@@ -142,7 +144,7 @@ plt.plot(x1, y1, label = 'Sem Efeito Magnus') #nesse caso devemos usar as equaç
 plt.title("Trajetória")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.axis("equal")
+plt.axis([0,250,-10,50],"equal")
 plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.show()
@@ -182,3 +184,14 @@ plt.show()
 #plt.ylabel("Velocidade vertical")
 #plt.grid()
 #plt.show()
+
+#fig=p.figure()
+#ax = p3.Axes3D(fig)
+#ax.plot_wireframe(x2,y2,z2)
+#ax.set_xlabel(r'')
+#ax.set_ylabel(r'')
+#ax.set_zlabel(r'')
+#
+#x2 = 10*np.outer(np.ones(np.size(solucao[:,0])))
+#y2 = 10*np.outer(np.ones(np.size(solucao[:,1])))
+#z2 = 10*np.outer(np.ones(np.size(solucao[:,0])))
