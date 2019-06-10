@@ -20,7 +20,6 @@ m = 0.04                # massa da esfera (kg)
 n = 1.8*1e-5            # viscosidade dinamica (Pa.s)
 I = (2/3)*m*(r**2)
 
-
 def eq_dif(lista_equacoes, tempo):
     x = lista_equacoes[0]
     y = lista_equacoes[1]
@@ -42,7 +41,7 @@ def eq_dif(lista_equacoes, tempo):
         dydt = vy
        
         if v > 0 :
-            Cl = 0.12
+            Cl = 0.126 #o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
             Re = 2*ro*r*v/n
             Cd = 0 #24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
             cos_alfa = vx/v
@@ -69,7 +68,7 @@ def eq_dif(lista_equacoes, tempo):
 
 #lista de tempo analisado
 dt = 1e-4
-lista_tempo = np.arange(0, 18, dt)
+lista_tempo = np.arange(0, 16.7, dt)
 
 # Condicoes iniciais: x, y, vx, vy respectivamente
 condicoes_iniciais = [0, 0, 130, 50]
@@ -104,5 +103,12 @@ for i in range(0, len(lista_tempo)):
 plt.plot(lista_tempo, energia_pot, label ='Energia Potencial Gravitacional')
 plt.plot(lista_tempo, energia_c, label = 'Energia Cinética')
 plt.plot(lista_tempo, energia_total, label = 'Energia Total')
+
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+plt.title("Conservação da Energia")
+
+plt.xlabel('Tempo (s)')
+plt.ylabel('Energia (J)')
+
 plt.show()
