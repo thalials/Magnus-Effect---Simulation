@@ -140,11 +140,11 @@ vy1 = solucao2[:,3]
 
 ##Graficos:
 plt.plot(x, y, label = 'Com Efeito Magnus')
-plt.plot(x1, y1, label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
+plt.plot(x1, y1, 'r', label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
 plt.title("Trajetória")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.axis([0,250,-10,50],"equal")
+plt.axis([0,230, 0,65],"equal")
 plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.show()
