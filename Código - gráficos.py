@@ -144,7 +144,7 @@ plt.plot(x1, y1, 'r', label = 'Sem Efeito Magnus') #nesse caso devemos usar as e
 plt.title("Trajetória")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.axis([0,230, 0,65],"equal")
+plt.axis([0, 230, 0, 60],"equal")
 plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.show()
