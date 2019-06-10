@@ -5,7 +5,7 @@ Autoria:
  Thalia Loiola Silva
 
 """
-from math import sqrt, pi
+from math import sqrt, pi, cos, sin
 from scipy.integrate import odeint
 import numpy as np
 import matplotlib.pyplot as plt
@@ -42,7 +42,7 @@ def eq_dif(lista_equacoes, tempo):
         dydt = vy
        
         if v > 0 :
-            Cl = 0.042 #o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
+            Cl = 0.126 #o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
             Re = 2*ro*r*v/n
             Cd = 0.25 #24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
             cos_alfa = vx/v
@@ -67,25 +67,6 @@ def eq_dif(lista_equacoes, tempo):
         
     return dxdt, dydt, dvxdt, dvydt
 
-#lista de tempo analisado
-dt = 1e-4
-lista_tempo = np.arange(0, 15, dt)
-
-# Condicoes iniciais: x, y, vx, vy respectivamente
-condicoes_iniciais = [0, 0, 130, 50]
-solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo)
-
-
-#coef_magnus = [0, 0.12]
-#coef_drag = [0, 0.24]
-
-
-# Solucoes 
-x = solucao[:,0]
-y = solucao[:,1]
-vx = solucao[:,2]
-vy = solucao[:,3]
-
 def eq_dif2(lista_equacoes, tempo):
     x = lista_equacoes[0]
     y = lista_equacoes[1]
@@ -109,7 +90,7 @@ def eq_dif2(lista_equacoes, tempo):
         if v > 0 :
             Cl = 0 # o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
 #            Re = 2*ro*r*v/n
-            Cd = 0.24 # 24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
+            Cd = 0.25 # 24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
             cos_alfa = vx/v
             sen_alfa = vy/v
             
@@ -137,8 +118,18 @@ dt = 1e-4
 lista_tempo = np.arange(0, 15, dt)
 
 # Condicoes iniciais: x, y, vx, vy respectivamente
-condicoes_iniciais2 = [0, 0, 130, 50]
-solucao2 = odeint(eq_dif2, condicoes_iniciais2, lista_tempo)
+v = 70 # velocidade de lançamento (m/s)
+theta = 16 # angulo de lançamento (graus)
+condicoes_iniciais = [0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180)]
+
+solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
+solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente c om Arrasto
+
+# Solucoes 
+x = solucao[:,0]
+y = solucao[:,1]
+vx = solucao[:,2]
+vy = solucao[:,3]
 
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
@@ -147,19 +138,13 @@ vy1 = solucao2[:,3]
 
 ##Graficos:
 plt.plot(x, y, label = 'Com Efeito Magnus')
-plt.title("trajetoria")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid()
-
 plt.plot(x1, y1, label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
-plt.title("trajetoria")
-plt.xlabel("x")
-plt.ylabel("y")
-plt.grid()
-
+plt.title("Trajetória")
+plt.xlabel("x (m)")
+plt.ylabel("y (m)")
+plt.axis("equal")
+plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-
 plt.show()
 
 #
