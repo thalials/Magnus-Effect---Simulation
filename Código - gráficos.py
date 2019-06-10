@@ -157,13 +157,13 @@ condicoes_iniciais = [0, 0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180),0]
 solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
 solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente com Arrasto
 
+
 x = solucao[:,0]
 y = solucao[:,1]
 z = solucao[:,2]
 vx = solucao[:,3]
 vy = solucao[:,4]
 vz = solucao[:,5]
-
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
 vx1 = solucao2[:,3]
