@@ -42,7 +42,7 @@ def eq_dif(lista_equacoes, tempo):
         dydt = vy
        
         if v > 0 :
-            Cl = 0.042 #o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
+            Cl = 0.126 #o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
             Re = 2*ro*r*v/n
             Cd = 0.25 #24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
             cos_alfa = vx/v
@@ -109,7 +109,7 @@ def eq_dif2(lista_equacoes, tempo):
         if v > 0 :
             Cl = 0 # o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
 #            Re = 2*ro*r*v/n
-            Cd = 0.24 # 24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
+            Cd = 0.25 # 24/Re + (2.6*(Re/5))/(1 + ((Re/5)**1.52)) + 0.411*((Re/263000)**(-7.94))/(1+((Re/263000)**(-8))) + (Re**0.8)/461000
             cos_alfa = vx/v
             sen_alfa = vy/v
             
