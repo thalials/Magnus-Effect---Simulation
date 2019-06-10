@@ -150,7 +150,8 @@ plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 #plt.axis([0,250,0,70])
 plt.grid(True)
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento (°):')
+#plt.legend(scatterpoints=1, frameon=False, labelspacing=1, title='Condutividade térmica:')
 plt.show()
 
 #
