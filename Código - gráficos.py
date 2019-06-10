@@ -127,11 +127,16 @@ condicoes_iniciais = [0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180)]
 solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
 solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente c om Arrasto
 
-# Solucoes 
-x = solucao[:,0]
-y = solucao[:,1]
-vx = solucao[:,2]
-vy = solucao[:,3]
+# Solucoes
+for i in range(8):
+    theta = 3 + 11.3*i
+    condicoes_iniciais = [0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180)]
+    solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
+    plt.plot(x, y, label = '{:.0f}'.format(theta)) 
+    x = solucao[:,0]
+    y = solucao[:,1]
+    vx = solucao[:,2]
+    vy = solucao[:,3]
 
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
@@ -139,12 +144,12 @@ vx1 = solucao2[:,2]
 vy1 = solucao2[:,3]
 
 ##Graficos:
-plt.plot(x, y, label = 'Com Efeito Magnus')
+
 plt.plot(x1, y1, label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
 plt.title("Trajetória")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-plt.axis([0,250,-10,50],"equal")
+#plt.axis([0,250,0,70])
 plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.show()
