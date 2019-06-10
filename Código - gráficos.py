@@ -57,10 +57,11 @@ def eq_dif(lista_equacoes, tempo):
             Dy = D*vy/v
             Dz = D*vz/v
             
+            mod = sqrt(2*( (vz-vy)**2 + vx**2 + vx**2)) # modulo de (w x v)
             M = -ro*(v**2)*A*Cl/2
-            Mx = M*(vz-vy)/v
-            My = M*vx/v
-            Mz = -M*vx/v
+            Mx = M*(vz-vy)/mod
+            My = M*vx/mod
+            Mz = -M*vx/mod
             
             Rx = Dx + Mx
             Ry = Dy + My - m*g
@@ -116,9 +117,10 @@ def eq_dif2(lista_equacoes, tempo):
             Dy = D*vy/v
             Dz = 0
             
+            mod = sqrt(2*( (vz-vy)**2 + vx**2 + vx**2)) # modulo de (w x v)
             M = -ro*(v**2)*A*Cl/2
-            Mx = M*(vz-vy)/v
-            My = M*vx/v
+            Mx = M*(vz-vy)/mod
+            My = M*vx/mod
             Mz = 0
             
             Rx = Dx + Mx
@@ -148,35 +150,37 @@ lista_tempo = np.arange(0, 15, dt)
 # Condicoes iniciais: x, y, vx, vy respectivamente
 v = 76 # velocidade de lançamento (m/s)
 theta = 17 # angulo de lançamento (graus)
-condicoes_iniciais = [0, 0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180), 0]
-
+unidade = ['°']
 
 # Solucoes
-solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente c om Arrasto
 condicoes_iniciais = [0, 0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180),0]
 solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
+solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente com Arrasto
+
 x = solucao[:,0]
 y = solucao[:,1]
 z = solucao[:,2]
-vx = solucao[:,2]
-vy = solucao[:,3]
-vz = solucao[:,4]
+vx = solucao[:,3]
+vy = solucao[:,4]
+vz = solucao[:,5]
 
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
-vx1 = solucao2[:,2]
-vy1 = solucao2[:,3]
+vx1 = solucao2[:,3]
+vy1 = solucao2[:,4]
 
-##Graficos:
+distancia = sqrt((x[-1]**2)+(y[-1]**2)+(z[-1]**2))
+distancia2 = sqrt((x1[-1]**2)+(y1[-1]**2))
 
-plt.plot(x, y, label = '{:.0f}'.format(theta)) 
-plt.plot(x1, y1, label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
+#Graficos:
+plt.plot(x, y, label = 'Com Efeito Magnus') 
+plt.plot(x1, y1, 'r', label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
 plt.title("Trajetória")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
-#plt.axis([0,250,0,70])
 plt.grid(True)
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
+#plt.legend(scatterpoints=1, frameon=False, labelspacing=1, title='Condutividade térmica:')
 plt.show()
 
 
@@ -188,4 +192,5 @@ ax.set_xlabel("x (m)")
 ax.set_ylabel("z (m)")
 ax.set_zlabel("y (m)")
 ax.set_title("Trajetória da bola")
+#ax.axis("equal")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
