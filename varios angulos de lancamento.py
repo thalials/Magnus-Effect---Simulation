@@ -192,7 +192,7 @@ plt.show()
 
 for i in range(len(lista_de_angulos)):
     plt.plot(lista_de_angulos[i],lista_de_alcances[i],'o', label = "{}°".format(lista_de_angulos[i]))
-plt.title("Gráfico Conclusivo")
+plt.title("Ângulo por alcance")
 plt.xlabel("Angulo (°)")
 plt.ylabel("Alcance (m)")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=0, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
