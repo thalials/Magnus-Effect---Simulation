@@ -175,7 +175,8 @@ plt.title("Trajetória da bola")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 plt.grid(True)
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.axis([0,170, 0, 20])
 plt.show()
 
 # Gráfico 3D
