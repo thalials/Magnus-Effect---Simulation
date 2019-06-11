@@ -113,7 +113,7 @@ def eq_dif2(lista_equacoes, tempo):
             Dy = D*vy/v
             Dz = 0
             
-            mod = sqrt(2*( (vz-vy)**2 + vx**2 + vx**2)) # modulo de (w x v)
+            mod = sqrt(2*((vz-vy)**2 + vx**2 + vx**2)) # modulo de (w x v)
             M = -ro*(v**2)*A*Cl/2
             Mx = M*(vz-vy)/mod
             My = M*vx/mod

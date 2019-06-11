@@ -179,7 +179,6 @@ for i in range(10):
     vy = solucao[:,4]
     plt.plot(x, y, label = '{:.1f}{:.1}'.format(theta, unidade[0])) 
     
-
 plt.title("Trajetória da bola")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
