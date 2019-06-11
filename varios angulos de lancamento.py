@@ -175,9 +175,7 @@ for i in range(10):
     solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo)   # com efeito Magnus e Arrasto
     x = solucao[:,0]
     y = solucao[:,1]
-    vx = solucao[:,3]
-    vy = solucao[:,4]
-    plt.plot(x, y, label = '{:.1f}{:.1}'.format(theta, unidade[0])) 
+    plt.plot(x, y,'--', label = '{:.1f}°'.format(theta)) 
     
 
 plt.title("Trajetória da bola")
@@ -186,3 +184,19 @@ plt.ylabel("y (m)")
 plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
 plt.show()
+
+fig=p.figure()
+ax = p3.Axes3D(fig)
+for i in range(10):
+    theta = 4 + 7*i 
+    condicoes_iniciais = [0, 0,0, v*cos(theta*pi/180), v*sin(theta*pi/180),0]
+    solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo)   # com efeito Magnus e Arrasto
+    x = solucao[:,0]
+    y = solucao[:,1]
+    z = solucao[:,2]
+    ax.plot(x,z,y,'--', label = '{:.1f}°'.format(theta))
+ax.set_xlabel("x (m)")
+ax.set_ylabel("z (m)")
+ax.set_zlabel("y (m)")
+ax.set_title("Trajetória da bola")
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
