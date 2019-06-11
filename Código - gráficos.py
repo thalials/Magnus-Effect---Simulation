@@ -3,6 +3,7 @@
 Autoria:
  Cicero Tiago Carneiro Valentim 
  Thalia Loiola Silva
+ Kathleen da Silva Nascimento
 
 """
 from math import sqrt, pi, cos, sin
@@ -16,12 +17,11 @@ r = 0.0213		        # raio da bola (m)
 A = pi*(r**2)          	# Área transversal (m²)
 V = 4*pi*(r**3)/3   	# Volume da esfera (m³)
 ro = 1.29            	# densidade volumétrica (kg/m³)
-w = 180               # velocidade angular (rad/s)
-g = 9.8                # Aceleração gravitacional
+w = 180                 # velocidade angular (rad/s)
+g = 9.8                 # Aceleração gravitacional
 m = 0.04                # massa da esfera (kg)
 n = 1.8*1e-5            # viscosidade dinamica (Pa.s)
-I = (2/3)*m*(r**2)
-
+I = (2/3)*m*(r**2)      # Momento de inercia da esfera
 
 def eq_dif(lista_equacoes, tempo):
     x = lista_equacoes[0]
@@ -42,14 +42,13 @@ def eq_dif(lista_equacoes, tempo):
         dvydt = 0
         dvzdt = 0
        
-    else:
-        
+    else:       
         dxdt = vx
         dydt = vy
         dzdt = vz
        
         if v > 0 :
-            Cl = 0.12 # o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
+            Cl = 0.12   # o coeficiente n depende de w pq esse valor já tem o w incluso (valor experimental)
             Cd = 0.25 
             
             D = -ro*(v**2)*A*Cd/2
@@ -71,7 +70,6 @@ def eq_dif(lista_equacoes, tempo):
             dvydt = Ry/m
             dvzdt = Rz/m
 
-
         elif v == 0:
             D = 0
             M = 0
@@ -79,7 +77,6 @@ def eq_dif(lista_equacoes, tempo):
             dvxdt = 0
             dvydt = Ry/m
             dvzdt = 0
-
         
     return dxdt, dydt, dzdt, dvxdt, dvydt, dvzdt
 
@@ -102,8 +99,7 @@ def eq_dif2(lista_equacoes, tempo):
         dvydt = 0
         dvzdt = 0
        
-    else:
-        
+    else:        
         dxdt = vx
         dydt = vy
         dzdt = vz
@@ -139,7 +135,6 @@ def eq_dif2(lista_equacoes, tempo):
             dvxdt = 0
             dvydt = Ry/m
             dvzdt = 0
-
         
     return dxdt, dydt, dzdt, dvxdt, dvydt, dvzdt
 
@@ -148,31 +143,32 @@ dt = 1e-4
 lista_tempo = np.arange(0, 15, dt)
 
 # Condicoes iniciais: x, y, vx, vy respectivamente
-v = 76 # velocidade de lançamento (m/s)
-theta = 17 # angulo de lançamento (graus)
-unidade = ['°']
+v = 76              # velocidade de lançamento (m/s)
+theta = 17          # angulo de lançamento (graus)
+unidade = ['°']     # Graus
 
 # Solucoes
 condicoes_iniciais = [0, 0, 0, v*cos(theta*pi/180), v*sin(theta*pi/180),0]
-solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo) # com efeito Magnus e Arrasto
+solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo)   # com efeito Magnus e Arrasto
 solucao2 = odeint(eq_dif2, condicoes_iniciais, lista_tempo) # somente com Arrasto
 
-
+# Com efeito Magnus e Arrasto
 x = solucao[:,0]
 y = solucao[:,1]
 z = solucao[:,2]
 vx = solucao[:,3]
 vy = solucao[:,4]
 vz = solucao[:,5]
+
+# Somente com Arrasto
 x1 = solucao2[:,0]
 y1 = solucao2[:,1]
 vx1 = solucao2[:,3]
 vy1 = solucao2[:,4]
 
-distancia = sqrt((x[-1]**2)+(y[-1]**2)+(z[-1]**2))
-distancia2 = sqrt((x1[-1]**2)+(y1[-1]**2))
-
 #Graficos:
+
+# Gráfico 2D
 plt.plot(x, y, label = 'Com Efeito Magnus') 
 plt.plot(x1, y1, 'r', label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
 plt.title("Trajetória")
@@ -180,10 +176,9 @@ plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 plt.grid(True)
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
-#plt.legend(scatterpoints=1, frameon=False, labelspacing=1, title='Condutividade térmica:')
 plt.show()
 
-
+# Gráfico 3D
 fig=p.figure()
 ax = p3.Axes3D(fig)
 ax.plot(solucao[:,0], solucao[:,2], solucao[:,1], label = "Com Efeito Magnus")
@@ -192,5 +187,4 @@ ax.set_xlabel("x (m)")
 ax.set_ylabel("z (m)")
 ax.set_zlabel("y (m)")
 ax.set_title("Trajetória da bola")
-#ax.axis("equal")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
