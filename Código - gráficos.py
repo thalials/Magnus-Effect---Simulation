@@ -113,7 +113,7 @@ def eq_dif2(lista_equacoes, tempo):
             Dy = D*vy/v
             Dz = 0
             
-            mod = sqrt(2*( (vz-vy)**2 + vx**2 + vx**2)) # modulo de (w x v)
+            mod = sqrt(2*((vz-vy)**2 + vx**2 + vx**2)) # modulo de (w x v)
             M = -ro*(v**2)*A*Cl/2
             Mx = M*(vz-vy)/mod
             My = M*vx/mod
@@ -171,11 +171,12 @@ vy1 = solucao2[:,4]
 # Gráfico 2D
 plt.plot(x, y, label = 'Com Efeito Magnus') 
 plt.plot(x1, y1, 'r', label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
-plt.title("Trajetória")
+plt.title("Trajetória da bola")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 plt.grid(True)
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=1, frameon=False, labelspacing=1, title='Ângulo de lançamento:')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.axis([0,170, 0, 20])
 plt.show()
 
 # Gráfico 3D

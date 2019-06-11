@@ -183,7 +183,6 @@ for i in range(10):
     lista_de_angulos.append(theta)
     plt.plot(x, y,'--', label = '{:.1f}°'.format(theta))
     
-
 plt.title("Trajetória da bola")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
@@ -217,4 +216,3 @@ ax.set_ylabel("z (m)")
 ax.set_zlabel("y (m)")
 ax.set_title("Trajetória da bola")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-
