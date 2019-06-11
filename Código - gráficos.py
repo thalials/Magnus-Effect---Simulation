@@ -171,7 +171,7 @@ vy1 = solucao2[:,4]
 # Gráfico 2D
 plt.plot(x, y, label = 'Com Efeito Magnus') 
 plt.plot(x1, y1, 'r', label = 'Sem Efeito Magnus') #nesse caso devemos usar as equações da fisica normal 
-plt.title("Trajetória")
+plt.title("Trajetória da bola")
 plt.xlabel("x (m)")
 plt.ylabel("y (m)")
 plt.grid(True)
