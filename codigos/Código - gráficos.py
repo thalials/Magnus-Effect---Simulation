@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Autoria:
  Cicero Tiago Carneiro Valentim 
  Thalia Loiola Silva
- Kathleen da Silva Nascimento
 
 """
 from math import sqrt, pi, cos, sin
