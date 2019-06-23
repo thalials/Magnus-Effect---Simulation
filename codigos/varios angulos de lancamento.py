@@ -143,7 +143,7 @@ dt = 1e-4
 lista_tempo = np.arange(0, 15, dt)
 
 # Condicoes iniciais: x, y, vx, vy respectivamente
-v = 76              # velocidade de lançamento (m/s)
+v =400           # velocidade de lançamento (m/s)
 theta = 17          # angulo de lançamento (graus)
 unidade = ['°']     # Graus
 
@@ -199,20 +199,20 @@ plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), scatterpoints=0, frameon=
 plt.grid(True)
 plt.show()
 
-
-fig=p.figure()
-ax = p3.Axes3D(fig)
-for i in range(10):
-    theta = 4 + 7*i 
-    condicoes_iniciais = [0, 0,0, v*cos(theta*pi/180), v*sin(theta*pi/180),0]
-    solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo)   # com efeito Magnus e Arrasto
-    x = solucao[:,0]
-    y = solucao[:,1]
-    z = solucao[:,2]
-    ax.plot(x,z,y,'--', label = '{:.1f}°'.format(theta))
+#
+#fig=p.figure()
+#ax = p3.Axes3D(fig)
+#for i in range(10):
+#    theta = 4 + 7*i 
+#    condicoes_iniciais = [0, 0,0, v*cos(theta*pi/180), v*sin(theta*pi/180),0]
+#    solucao = odeint(eq_dif, condicoes_iniciais, lista_tempo)   # com efeito Magnus e Arrasto
+#    x = solucao[:,0]
+#    y = solucao[:,1]
+#    z = solucao[:,2]
+#    ax.plot(x,z,y,'--', label = '{:.1f}°'.format(theta))
     
-ax.set_xlabel("x (m)")
-ax.set_ylabel("z (m)")
-ax.set_zlabel("y (m)")
-ax.set_title("Trajetória da bola")
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+#ax.set_xlabel("x (m)")
+#ax.set_ylabel("z (m)")
+#ax.set_zlabel("y (m)")
+#ax.set_title("Trajetória da bola")
+#plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
